@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,7 +19,6 @@ public class Pessoa {
 	private Long id;
 
 	@NotNull
-	@Size(min = 10, max = 100)
 	private String nome;
 
 	@NotNull

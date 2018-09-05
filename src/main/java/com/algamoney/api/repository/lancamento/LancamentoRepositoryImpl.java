@@ -52,7 +52,7 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 		Root<Lancamento> root = criteria.from(Lancamento.class);
 		criteria.select(builder.construct(ResumoLancamento.class
 				, root.get(Lancamento_.id), root.get(Lancamento_.descricao)
-				, root.get(Lancamento_.dataVencimento), root.get(Lancamento_.dataPagemento)
+				, root.get(Lancamento_.dataVencimento), root.get(Lancamento_.dataPagamento)
 				, root.get(Lancamento_.valor), root.get(Lancamento_.tipo)
 				, root.get(Lancamento_.categoria).get(Categoria_.nome)
 				, root.get(Lancamento_.pessoa).get(Pessoa_.nome)));
