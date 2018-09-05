@@ -19,6 +19,7 @@ public abstract class Lancamento_ {
 	public static volatile SingularAttribute<Lancamento, LocalDate> dataPagemento;
 	public static volatile SingularAttribute<Lancamento, Long> id;
 	public static volatile SingularAttribute<Lancamento, String> descricao;
+	public static SingularAttribute dataPagamento;
 
 }
 

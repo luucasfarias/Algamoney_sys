@@ -2,8 +2,12 @@ package com.algamoney.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
+import com.algamoney.api.config.property.AlgamoneyApiProperty;
 
 @SpringBootApplication
+@EnableConfigurationProperties(AlgamoneyApiProperty.class)
 public class AlgamoneyApiApplication {
 
 	public static void main(String[] args) {
@@ -15,5 +19,4 @@ public class AlgamoneyApiApplication {
 //sudo systemctl start mysqld
 
 // Comando para entrar no mysql
-// mysql -u root -p
-// senha: root
+// mysql -u root -p password algamoney_api;
