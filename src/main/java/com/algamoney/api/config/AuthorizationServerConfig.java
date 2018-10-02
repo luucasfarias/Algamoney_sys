@@ -39,9 +39,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
 		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), accessTokenConverter()));
-
-		endpoints.tokenStore(tokenStore()).tokenEnhancer(tokenEnhancerChain).reuseRefreshTokens(false)
-				.authenticationManager(authenticationManager);
+		
+		endpoints
+		.tokenStore(tokenStore())
+		.tokenEnhancer(tokenEnhancerChain)
+		.reuseRefreshTokens(false)
+		.authenticationManager(authenticationManager);
 	}
 
 	@Bean
@@ -55,9 +58,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public TokenStore tokenStore() {
 		return new JwtTokenStore(accessTokenConverter());
 	}
-
+	
 	@Bean
 	public TokenEnhancer tokenEnhancer() {
-		return new CustomTokenEnhancer();
+	    return new CustomTokenEnhancer();
 	}
 }
