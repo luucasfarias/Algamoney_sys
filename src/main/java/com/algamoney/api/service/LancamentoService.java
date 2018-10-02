@@ -20,40 +20,38 @@ public class LancamentoService {
 	private LancamentoRepository lancamentoRepository;
 
 	public Lancamento salvar(Lancamento lancamento) {
-		Pessoa pessoa = pessoaRepository.findOne(lancamento.getPessoa().getId());
-		if (pessoa == null || pessoa.isInativo()) {
-			throw new PessoaInativaOuInexistenteException();
-		}
+		validarPessoa(lancamento);
+
 		return lancamentoRepository.save(lancamento);
 	}
 
-	Public Lancamento atualizar(Long id, Lancamento lancamento){
+	public Lancamento atualizar(Long id, Lancamento lancamento) {
 		Lancamento lancamentoSalvo = buscarLancamentoExistente(id);
-		if(!lancamento.getPessoa().equals(lancamentoSalvo.getPessoa())){
+		if (!lancamento.getPessoa().equals(lancamentoSalvo.getPessoa())) {
 			validarPessoa(lancamento);
 		}
 
 		BeanUtils.copyProperties(lancamento, lancamentoSalvo, "id");
+
 		return lancamentoRepository.save(lancamentoSalvo);
 	}
 
-	private void validarPessoa(Lancamento lancamento){
+	private void validarPessoa(Lancamento lancamento) {
 		Pessoa pessoa = null;
-		if(lancamento.getPessoa().getId() != null){
+		if (lancamento.getPessoa().getId() != null) {
 			pessoa = pessoaRepository.findOne(lancamento.getPessoa().getId());
 		}
 
-		if(pessoa == null || pessoa.isInativo()){
+		if (pessoa == null || pessoa.isInativo()) {
 			throw new PessoaInativaOuInexistenteException();
 		}
 	}
 
-	private Lancamento buscarLancamentoExistente(Long id){
+	private Lancamento buscarLancamentoExistente(Long id) {
 		Lancamento lancamentoSalvo = lancamentoRepository.findOne(id);
-		if(lancamentoSalvo == null){
+		if (lancamentoSalvo == null) {
 			throw new IllegalArgumentException();
 		}
-
 		return lancamentoSalvo;
 	}
 

@@ -48,35 +48,35 @@ public class PessoaResource {
 
 	@GetMapping("/{id}")
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA') and #oauth2.hasScope('read')")
-	public ResponseEntity<Pessoa> buscarPeloid(@PathVariable Long id) {
+	public ResponseEntity<Pessoa> buscarPeloId(@PathVariable Long id) {
 		Pessoa pessoa = pessoaRepository.findOne(id);
 		return pessoa != null ? ResponseEntity.ok(pessoa) : ResponseEntity.notFound().build();
 	}
-
+	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PreAuthorize("hasAuthority('ROLE_REMOVER_PESSOA') and #oauth2.hasScope('write')")
 	public void remover(@PathVariable Long id) {
 		pessoaRepository.delete(id);
 	}
-
+	
 	@PutMapping("/{id}")
 	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
 	public ResponseEntity<Pessoa> atualizar(@PathVariable Long id, @Valid @RequestBody Pessoa pessoa) {
 		Pessoa pessoaSalva = pessoaService.atualizar(id, pessoa);
 		return ResponseEntity.ok(pessoaSalva);
 	}
-
-	@PutMapping("/{id}/ativo")
+	
+	@PutMapping("/{codigo}/ativo")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
 	public void atualizarPropriedadeAtivo(@PathVariable Long id, @RequestBody Boolean ativo) {
 		pessoaService.atualizarAtivo(id, ativo);
 	}
-
+	
 	@GetMapping
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA')")
-	public Page<Pessoa> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome, 			Pageable pageable) {
+	public Page<Pessoa> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome, Pageable pageable) {
 		return pessoaRepository.findByNomeContaining(nome, pageable);
 	}
 
